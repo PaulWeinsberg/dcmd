@@ -65,7 +65,7 @@ To make it accessible from anywhere on your local machine as an executable run t
 
 `chmod +x dcmd`
 
-`cp dcmd /usr/local/bin`
+`sudo cp dcmd /usr/local/bin`
 
 
 ## Project configuration
