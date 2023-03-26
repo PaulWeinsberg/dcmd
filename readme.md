@@ -78,7 +78,6 @@ Copy .docker/.env.example ro .dockser/.env, then set the right variables values 
 |------|--------------|---------|
 | PROJECT_ROOT	| Where your project is located	| /Users/me/Projects/myproject
 | PROJECT_NAME	  | The name of your project |	my_awesome_project
-| DOCKER_FOLDER	  | Optional, used to override the default .docker path (which is {project_root/.docker}) |	.docker_custom_folder
 
 **Project name**
 
