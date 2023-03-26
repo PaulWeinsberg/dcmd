@@ -1,0 +1,114 @@
+version: '3.9'
+
+name: my_drupal_project
+
+services:
+
+  node:
+    hostname: node
+    container_name: ${PROJECT_NAME}_node
+    build: services/node
+    working_dir: /var/www
+    command: tail -f /dev/null
+    dns:
+      - ${SUBNET_BASE}.20
+      - 8.8.8.8
+    volumes:
+      - type: bind
+        source: ${PROJECT_ROOT}
+        target: /var/www
+      - ${PROJECT_ROOT}/.bundler/node_modules:/var/www/.bundler/node_modules
+    ports:
+      - "4200:4200"
+      - "4201:4201"
+    networks:
+      - mainnet
+
+  dns:
+    hostname: dns
+    container_name: ${PROJECT_NAME}_dns
+    build:
+      dockerfile: services/dns/Dockerfile
+      args:
+        - PROJECT_ROOT=${PROJECT_ROOT}
+    ports:
+      - "53/udp"
+    cap_add:
+      - NET_ADMIN
+    networks:
+      mainnet:
+        ipv4_address: ${SUBNET_BASE}.20
+
+  apache:
+    hostname: web
+    container_name: ${PROJECT_NAME}_web
+    build:
+      dockerfile: services/httpd/Dockerfile
+      args:
+        - PROJECT_ROOT=${PROJECT_ROOT}
+    dns:
+      - ${SUBNET_BASE}.20
+      - 8.8.8.8
+    ports:
+      - '80:80'
+    volumes:
+      - ${PROJECT_ROOT}:/usr/local/apache2/htdocs
+      - ${PROJECT_ROOT}/.docker/etc/apache/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - ${PROJECT_ROOT}/.docker/etc/apache/httpd-vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+    depends_on:
+        - php
+    networks:
+      mainnet:
+        ipv4_address: ${SUBNET_BASE}.10
+
+  php:
+    hostname: php
+    container_name: ${PROJECT_NAME}_php
+    build:
+      dockerfile: services/php/Dockerfile
+      args:
+        - PROJECT_ROOT=${PROJECT_ROOT}
+    working_dir: /var/www
+    dns:
+      - ${SUBNET_BASE}.20
+      - 8.8.8.8
+    expose:
+      - 9000
+    volumes:
+      - type: bind
+        source: ${PROJECT_ROOT}
+        target: /var/www
+      - ${PROJECT_ROOT}/.docker/etc/php/php-fpm.conf:/usr/local/etc/php-fpm.conf
+    networks:
+      - mainnet
+
+  db:
+    hostname: db
+    container_name: ${PROJECT_NAME}_db
+    image: mariadb:10.6.12
+    dns:
+      - ${SUBNET_BASE}.20
+      - 8.8.8.8
+    expose:
+     - 3306
+    volumes:
+      - db_data:/var/lib/mysql  # Database data volume
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user
+      - MYSQL_DATABASE=default
+    networks:
+      - mainnet
+
+volumes:
+  db_data:
+    name: ${PROJECT_NAME}_db_data
+
+networks:
+  mainnet:
+    driver: bridge
+    ipam:
+     config:
+        - subnet: ${SUBNET_BASE}.0/24
+          gateway: ${SUBNET_BASE}.1

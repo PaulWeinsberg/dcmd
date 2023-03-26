@@ -1,0 +1,8 @@
+#!/usr/bin/env /bin/bash
+
+set -e
+
+TASK="$@"
+
+docker exec -it ${PROJECT_NAME}_php /bin/bash -c "composer $PARAMS"
+

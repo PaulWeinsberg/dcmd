@@ -1,0 +1,6 @@
+#!/usr/bin/env /bin/bash
+
+set -e
+
+docker exec -it ${PROJECT_NAME}_db mysql -u root -proot $PARAMS
+

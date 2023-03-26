@@ -1,0 +1,89 @@
+#!/usr/bin/env /bin/bash
+
+DCMD_STOP_TIMEOUT="3"
+DOCKER_FOLDER=$(pwd)/.docker
+
+set -e
+
+if [[ -f $DOCKER_FOLDER/.env ]]; then
+  export $(grep -v '^#' $DOCKER_FOLDER/.env | xargs)
+else
+  echo -e "\n"
+  echo -e "⚠️  Your .docker/.env file does not exist"
+  echo -e "\n"
+  exit 1;
+fi
+
+if [[ ! -d $DOCKER_FOLDER ]]; then
+
+  echo -e "\n"
+  echo -e "⚠️  You're not at root of your docker folder, no .docker has been found"
+  echo -e "\n"
+  exit 1;
+
+fi
+
+if [[ "$@" == "up" ]]; then
+
+  docker compose -f $DOCKER_FOLDER/docker-compose.yml up --build -d
+
+elif [[ "$@" == "down" ]]; then
+
+  docker compose -f $DOCKER_FOLDER/docker-compose.yml down -v -t $DCMD_STOP_TIMEOUT
+
+elif [[ "$@" == "stop" ]]; then
+
+  docker compose -f $DOCKER_FOLDER/docker-compose.yml stop -t $DCMD_STOP_TIMEOUT
+
+elif [[ "$@" == "start" ]]; then
+
+  docker compose -f $DOCKER_FOLDER/docker-compose.yml start
+
+elif [[ "$@" == "ls" ]] || [[ -z "$@" ]]; then
+
+  echo -e "Available commands"
+  echo -e "\n"
+
+  for APP in $(ls $DOCKER_FOLDER/commands); do
+    APP_COMMAND_PATH=$DOCKER_FOLDER/commands/$APP
+    if [[ -d $APP_COMMAND_PATH ]]; then
+      for APP_COMMAND in $(ls $APP_COMMAND_PATH); do
+        echo -e "dcmd $APP $APP_COMMAND"
+      done
+    else
+      echo -e "dcmd $APP"
+    fi
+  done
+
+elif [[ -d $DOCKER_FOLDER/commands/$1 ]]; then
+
+  COMMAND=$DOCKER_FOLDER/commands/$1/$2
+  shift; shift;
+  PARAMS="$@"
+  IS_COMMAND=1
+
+else
+
+  COMMAND=$DOCKER_FOLDER/commands/$1
+  shift;
+  PARAMS="$@"
+  IS_COMMAND=1
+
+fi
+
+if [[ $IS_COMMAND ]]; then
+
+  if [[ ! -f $COMMAND ]]; then
+    echo -e "\n"
+    echo -e "⚠️  The command $COMMAND does not exists"
+    echo -e "\n"
+    exit 1;
+
+  else
+
+    source $COMMAND
+
+  fi
+
+fi
+
