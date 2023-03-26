@@ -1,8 +1,13 @@
 # Docker Compose templates
 
-These docker templates provide a complete docker compose development environment with the aim of avoid any other dependencies or heavy VM like DDEV or Docksal projects.
+These docker templates provide a complete docker compose development kit with the aim of :
 
-## Envrionment configuration (example for MacOS)
+- avoid any other dependencies or heavy VM like DDEV or Docksal projects.
+- use VHOST proxy throught docker container
+- make your life easier by automating long and reccurent commands
+- share project easily with teammates
+
+## OS configuration (example for MacOS)
 
 **Install dnsmasq**
 
@@ -27,7 +32,7 @@ Start or restart the service if is already running
 
 ✅ You're good to go
 
-**Docksal cohabitation 🚧**
+## Docksal cohabitation conf 🚧 (skip it if you're not affected)
 
 If you still running some docksal projects, you'll have to turn off the Docksal built-in DNS by running the following command :
 
