@@ -137,4 +137,4 @@ If you need several commands, separated by apps for example you can create a dir
 ### Drupal
 
 This configuration has been tested on Drupal 8, 9 and 10.
-The node container is optional but may be required for frontend development it has been configured to work with the [agnostic-bundler]() in a .bundler folder at project root.
+The node container is optional but may be required for frontend development it has been configured to work with the [agnostic-bundler](https://github.com/PaulWeinsberg/agnostic-bundler) in a .bundler folder at project root.
