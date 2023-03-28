@@ -30,7 +30,7 @@ services:
     build:
       dockerfile: services/dns/Dockerfile
       args:
-        - PROJECT_ROOT=${PROJECT_ROOT}
+        - SUBNET_BASE=${SUBNET_BASE}
     ports:
       - "53/udp"
     cap_add:
