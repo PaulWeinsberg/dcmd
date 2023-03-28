@@ -75,9 +75,7 @@ services:
     expose:
       - 9000
     volumes:
-      - type: bind
-        source: ${PROJECT_ROOT}
-        target: /var/www
+      - ${PROJECT_ROOT}:/usr/local/apache2/htdocs
       - ${PROJECT_ROOT}/.docker/etc/php/php-fpm.conf:/usr/local/etc/php-fpm.conf
     networks:
       - mainnet
