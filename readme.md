@@ -1,11 +1,16 @@
-# Docker Compose templates
+# Docker Commands
 
-These docker templates provide a complete docker compose development kit with the aim of :
+Docker commands provide a lightweight docker compose development kit with the aim of :
 
 - avoid any other dependencies or heavy VM like DDEV or Docksal projects.
-- use VHOST proxy throught docker container
+- use VHOST proxy through docker container
 - make your life easier by automating long and reccurent commands
 - share project easily with teammates
+
+How does it work ?
+
+- A CLI to use custom and built-in commands
+- A simple configuration to resolve VHOSTS from you local machine
 
 ## OS configuration (example for MacOS)
 
