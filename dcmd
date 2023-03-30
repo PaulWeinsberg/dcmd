@@ -1,9 +1,11 @@
 #!/usr/bin/env /bin/bash
 
-VERSION="1.0.0"
+VERSION="1.0.1"
 DCMD_STOP_TIMEOUT="3"
 DOCKER_FOLDER=$(pwd)/.docker
 VERSION_FLAGS=("-v" "--version" "version")
+LIST_FLAGS=("-l" "--list" "ls")
+HELP_FLAGS=("help" "--help")
 
 set -e
 
@@ -62,11 +64,30 @@ elif [[ "$1" == "update" ]]; then
 
 elif [[ ${VERSION_FLAGS[*]} =~ "$1" ]]; then
 
-  echo -e "Docker Commands v1.0.0"
+  echo -e "Docker Commands v${VERSION}"
 
-elif [[ "$1" == "ls" ]] || [[ -z "$@" ]]; then
+elif [[ ${HELP_FLAGS[*]} =~ "$1" ]] || [[ -z "$@" ]]; then
 
-  echo -e "Available commands:"
+  echo -e "Docker Commands v${VERSION}"
+  echo -e "Run dcmd ls to see all available commands"
+
+elif [[ ${LIST_FLAGS[*]} =~ "$1" ]]; then
+
+  echo -e "Available built-in commands:"
+  echo -e "\n"
+  echo -e "dcmd up"
+  echo -e "dcmd down"
+  echo -e "dcmd stop"
+  echo -e "dcmd start"
+  echo -e "dcmd restart"
+  echo -e "dcmd update"
+  echo -e "dcmd version"
+  echo -e "dcmd help"
+  echo -e "dcmd ls"
+
+  echo -e "\n"
+
+  echo -e "Available custom commands:"
   echo -e "\n"
 
   for APP in $(ls $DOCKER_FOLDER/commands); do
