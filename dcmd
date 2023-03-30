@@ -14,7 +14,8 @@ set -e
 
 if [[ -f $DOCKER_FOLDER/.env ]]; then
   export $(grep -v '^#' $DOCKER_FOLDER/.env | xargs)
-elif [[ $1 != 'update' ]] && [[ ! ${VERSION_FLAGS[*]} =~ "$1" ]]
+
+elif [[ $1 != 'update' ]] && [[ ! ${VERSION_FLAGS[*]} =~ "$1" ]]; then
   echo -e "\n"
   echo -e "⚠️  Your .docker/.env file does not exist"
   echo -e "\n"
