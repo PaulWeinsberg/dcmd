@@ -1,7 +1,9 @@
 #!/usr/bin/env /bin/bash
 
+VERSION="1.0.0"
 DCMD_STOP_TIMEOUT="3"
 DOCKER_FOLDER=$(pwd)/.docker
+VERSION_FLAGS=("-v" "--version" "version")
 
 set -e
 
@@ -23,25 +25,48 @@ if [[ ! -d $DOCKER_FOLDER ]]; then
 
 fi
 
-if [[ "$@" == "up" ]]; then
+if [[ "$1" == "up" ]]; then
 
-  docker compose -f $DOCKER_FOLDER/docker-compose.yml up --build -d
+  shift;
+  docker compose -f $DOCKER_FOLDER/docker-compose.yml up --build -d $@
 
-elif [[ "$@" == "down" ]]; then
+elif [[ "$1" == "down" ]]; then
 
-  docker compose -f $DOCKER_FOLDER/docker-compose.yml down -v -t $DCMD_STOP_TIMEOUT
+  shift;
+  docker compose -f $DOCKER_FOLDER/docker-compose.yml down -v -t $DCMD_STOP_TIMEOUT $@
 
-elif [[ "$@" == "stop" ]]; then
+elif [[ "$1" == "stop" ]]; then
 
-  docker compose -f $DOCKER_FOLDER/docker-compose.yml stop -t $DCMD_STOP_TIMEOUT
+  shift;
+  docker compose -f $DOCKER_FOLDER/docker-compose.yml stop -t $DCMD_STOP_TIMEOUT $@
 
-elif [[ "$@" == "start" ]]; then
+elif [[ "$1" == "start" ]]; then
 
-  docker compose -f $DOCKER_FOLDER/docker-compose.yml start
+  shift;
+  docker compose -f $DOCKER_FOLDER/docker-compose.yml start $@
 
-elif [[ "$@" == "ls" ]] || [[ -z "$@" ]]; then
+elif [[ "$1" == "restart" ]]; then
 
-  echo -e "Available commands"
+  shift;
+  docker compose -f $DOCKER_FOLDER/docker-compose.yml restart -t $DCMD_STOP_TIMEOUT $@
+
+elif [[ "$1" == "update" ]]; then
+
+  echo -e "Updating dcmd..."
+
+  DCMD_PATH=$(which dcmd)
+  CONTENT=$(curl -s https://raw.githubusercontent.com/PaulWeinsberg/dcmd/main/dcmd)
+
+  echo "$CONTENT" | sudo tee $DCMD_PATH > /dev/null
+  echo -e "DCMD updated to version $VERSION in the path $DCMD_PATH"
+
+elif [[ ${VERSION_FLAGS[*]} =~ "$1" ]]; then
+
+  echo -e "Docker Commands v1.0.0"
+
+elif [[ "$1" == "ls" ]] || [[ -z "$@" ]]; then
+
+  echo -e "Available commands:"
   echo -e "\n"
 
   for APP in $(ls $DOCKER_FOLDER/commands); do
