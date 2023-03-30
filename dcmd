@@ -61,7 +61,7 @@ elif [[ "$1" == "update" ]]; then
   echo -e "Updating dcmd..."
 
   DCMD_PATH=$(which dcmd)
-  CONTENT=$(curl -s https://raw.githubusercontent.com/PaulWeinsberg/dcmd/main/dcmd)
+  CONTENT=$(curl -s -H 'Cache-Control: no-cache, no-store' https://raw.githubusercontent.com/PaulWeinsberg/dcmd/main/dcmd)
 
   echo "$CONTENT" | sudo tee $DCMD_PATH > /dev/null
   echo -e "DCMD updated to version $VERSION in the path $DCMD_PATH"
