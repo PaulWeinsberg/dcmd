@@ -1,11 +1,14 @@
 #!/usr/bin/env /bin/bash
 
-VERSION="1.0.1"
+VERSION="1.0.2"
 DCMD_STOP_TIMEOUT="3"
-DOCKER_FOLDER=$(pwd)/.docker
 VERSION_FLAGS=("-v" "--version" "version")
 LIST_FLAGS=("-l" "--list" "ls")
 HELP_FLAGS=("help" "--help")
+
+if [[ -z "$DOCKER_FOLDER" ]]; then
+  DOCKER_FOLDER=$(pwd)/.docker
+fi
 
 set -e
 

@@ -115,9 +115,27 @@ If you've made a change in Dockerfiles or in the docker-compose.yml you should r
 
 `dcmd stop`
 
+**Restart a project**
+
+`dcmd restart`
+
 **Delete project and remove containers and data**
 
 `dcmd down`
+
+**Update DCMD to the latest version**
+
+`dcmd update`
+
+**List available commands**
+
+`dcmd ls`
+
+**Override default docker folder**
+
+You can override default docker folder by passing the variable DOCKER_FOLDER=your/path/from/execution :
+
+`DOCKER_FOLDER=.custom-docker-folder/local-dev dcmd start`
 
 ## Custom commands
 
