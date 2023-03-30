@@ -101,6 +101,19 @@ services:
     networks:
       - mainnet
 
+  # MailHog
+  mail:
+    hostname: mail
+    container_name: ${PROJECT_NAME}_mail
+    image: jcalonso/mailhog:v1.0.1
+    dns:
+      - ${SUBNET_BASE}.20
+    ports:
+      - 8025:8025
+      - 1025:1025
+    networks:
+      - mainnet
+
 volumes:
   db_data:
     name: ${PROJECT_NAME}_db_data
