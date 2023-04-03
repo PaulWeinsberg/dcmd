@@ -68,7 +68,7 @@ services:
       dockerfile: services/php/Dockerfile
       args:
         - PROJECT_ROOT=${PROJECT_ROOT}
-    working_dir: /var/www
+    working_dir: /usr/local/apache2/htdocs
     dns:
       - ${SUBNET_BASE}.20
       - 8.8.8.8
