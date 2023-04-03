@@ -2,5 +2,5 @@
 
 set -e
 
-docker exec -it ${PROJECT_NAME}_php /bin/bash -c "/var/www/vendor/bin/drush $PARAMS"
+docker exec -it ${PROJECT_NAME}_php /bin/bash -c "vendor/bin/drush $PARAMS"
 
