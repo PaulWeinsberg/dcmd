@@ -101,7 +101,6 @@ services:
     networks:
       - mainnet
 
-  # MailHog
   mail:
     hostname: mail
     container_name: ${PROJECT_NAME}_mail
@@ -111,6 +110,19 @@ services:
     expose:
       - 8025
       - 1025
+    networks:
+      - mainnet
+
+  solr:
+    hostname: solr
+    container_name: ${PROJECT_NAME}_solr
+    build: services/solr
+    volumes:
+      - ${PROJECT_ROOT}/.docker/data/solr:/var/solr
+    dns:
+      - ${SUBNET_BASE}.20
+    expose:
+      - 8983
     networks:
       - mainnet
 

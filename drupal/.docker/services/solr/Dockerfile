@@ -1,0 +1,2 @@
+FROM solr:8.11.2-slim
+
