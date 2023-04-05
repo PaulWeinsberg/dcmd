@@ -2,5 +2,5 @@
 
 set -e
 
-docker compose -f ${DOCKER_FOLDER}/docker-compose.yml logs -f $CONTAINER
+docker compose -f ${DOCKER_FOLDER}/docker-compose.yml logs -f $PARAMS
 
