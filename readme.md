@@ -33,7 +33,7 @@ Start or restart the service if is already running
 
 `sudo mkdir -v /etc/resolver`
 
-`sudo echo "servername 127.0.0.1" >> /etc/resolver/dev.local`
+`sudo echo "nameserver 127.0.0.1" >> /etc/resolver/dev.local`
 
 ✅ You're good to go
 
@@ -49,7 +49,7 @@ These commands will disable the Docksal DNS so you need to update our own DNS se
 
 `echo "address=/docksal.site/127.0.0.1" >> $(brew --prefix)/etc/dnsmasq.conf`
 
-`sudo echo "servername 127.0.0.1" >> /etc/resolver/docksal.site`
+`sudo echo "nameserver 127.0.0.1" >> /etc/resolver/docksal.site`
 
 `sudo brew services restart dnsmasq`
 
