@@ -63,7 +63,7 @@ Also you should redo this command after start (sometimes its required)
 
 `sudo cp /etc/resolver/dev.local /etc/resolver/docksal.site && brew services restart dnsmasq`
 
-**Add the CLI executable**
+## Add the CLI executable
 
 As the project should come with the least possible dependencies, the CLI is a simple bash file that you can customize as well.
 To make it accessible from anywhere on your local machine as an executable run the two lines below :
