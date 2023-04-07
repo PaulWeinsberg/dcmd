@@ -45,8 +45,8 @@ impl<'a> Display for Command<'a> {
       Command::Restart(value) => write!(f, "{}", value),
       Command::Up(value) => write!(f, "{}", value),
       Command::Down(value) => write!(f, "{}", value),
-      Command::Version(value) => write!(f, "{}", value),
       Command::Help(value) => write!(f, "{}", value),
+      Command::Version(value) => write!(f, "{}", value),
       Command::List(value) => write!(f, "{}", value),
       Command::Update(value) => write!(f, "{}", value),
       Command::Custom(value) => write!(f, "{}", value),
@@ -55,17 +55,17 @@ impl<'a> Display for Command<'a> {
 }
 
 impl Command<'static> {
-  pub fn iter() -> Iter<'static, Command<'static>> {
+  pub fn iter_builtin() -> Iter<'static, Command<'static>> {
     static COMMANDS: [Command; 9] = [
       Command::Start("start"),
       Command::Stop("strop"),
       Command::Restart("restart"),
       Command::Up("up"),
       Command::Down("down"),
-      Command::Update("update"),
       Command::Help("Help"),
       Command::Version("version"),
       Command::List("list"),
+      Command::Update("update"),
     ];
     COMMANDS.iter()
   }
@@ -78,10 +78,11 @@ pub fn handle(config: &Config) {
     Command::Restart(_) => handle_restart(config),
     Command::Up(_) => handle_up(config),
     Command::Down(_) => handle_down(config),
-    // Command::Update(_) => handle_update(config),
-    Command::Version(_) => handle_version(config),
     Command::Help(_) => handle_help(),
+    Command::Version(_) => handle_version(config),
     Command::List(_) => handle_list(config),
+    // Command::Update(_) => handle_update(config),
+    Command::Custom(_) => handle_custom(config),
     _ => println!("Should be implemented")
   }
 }
