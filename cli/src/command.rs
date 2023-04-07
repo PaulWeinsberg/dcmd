@@ -18,6 +18,8 @@ pub enum Command<'a> {
   Version(&'a str),
   List(&'a str),
   Custom(&'a str),
+  DNSStart(&'a str),
+  DNSStop(&'a str),
 }
 
 impl<'a> Clone for Command<'a> {
@@ -33,6 +35,8 @@ impl<'a> Clone for Command<'a> {
       Command::Version(value) => Command::Version(value),
       Command::List(value) => Command::List(value),
       Command::Custom(value) => Command::Custom(value),
+      Command::DNSStart(value) => Command::Custom(value),
+      Command::DNSStop(value) => Command::Custom(value),
     }
   }
 }
@@ -50,13 +54,15 @@ impl<'a> Display for Command<'a> {
       Command::List(value) => write!(f, "{}", value),
       Command::Update(value) => write!(f, "{}", value),
       Command::Custom(value) => write!(f, "{}", value),
+      Command::DNSStart(value) => write!(f, "{}", value),
+      Command::DNSStop(value) => write!(f, "{}", value),
     }
   }
 }
 
 impl Command<'static> {
   pub fn iter_builtin() -> Iter<'static, Command<'static>> {
-    static COMMANDS: [Command; 9] = [
+    static COMMANDS: [Command; 11] = [
       Command::Start("start"),
       Command::Stop("strop"),
       Command::Restart("restart"),
@@ -66,6 +72,8 @@ impl Command<'static> {
       Command::Version("version"),
       Command::List("list"),
       Command::Update("update"),
+      Command::DNSStart("dns-start"),
+      Command::DNSStop("dns-stop"),
     ];
     COMMANDS.iter()
   }
@@ -83,6 +91,8 @@ pub fn handle(config: &Config) {
     Command::List(_) => handle_list(config),
     Command::Update(_) => println!("Coming soon..."),
     Command::Custom(_) => handle_custom(config),
+    Command::DNSStart(_) => println!("Coming soon..."),
+    Command::DNSStop(_) => println!("Coming soon..."),
   }
 }
 
@@ -109,6 +119,8 @@ pub fn get_command<'a>(args: &'a [String], default: &'a String) -> Command<'a> {
     "list" => Command::List("list"),
     "ls" => Command::List("list"),
     "--ls" => Command::List("list"),
+    "dns-start" => Command::DNSStart("dns-start"),
+    "dns-stop" => Command::DNSStart("dns-stop"),
     custom => Command::Custom(custom)
   }
 }
