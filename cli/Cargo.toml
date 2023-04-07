@@ -8,3 +8,5 @@ edition = "2021"
 [dependencies]
 envmnt = "0.10.4"
 indexmap = "1.9.3"
+serde = { version = "1.0.159", features = ["derive"] }
+toml = "0.7.3"

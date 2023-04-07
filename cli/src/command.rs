@@ -81,9 +81,8 @@ pub fn handle(config: &Config) {
     Command::Help(_) => handle_help(),
     Command::Version(_) => handle_version(config),
     Command::List(_) => handle_list(config),
-    // Command::Update(_) => handle_update(config),
+    Command::Update(_) => println!("Coming soon..."),
     Command::Custom(_) => handle_custom(config),
-    _ => println!("Should be implemented")
   }
 }
 

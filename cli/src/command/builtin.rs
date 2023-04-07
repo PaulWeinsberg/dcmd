@@ -159,12 +159,10 @@ fn finalize_docker_command<'a>(command: &'a mut Command, config: &Config) -> &'a
 }
 
 fn exec_command(mut command: Command) {
-  let output = command
+  command
   .status()
   .unwrap_or_else(|_| {
     println!("Something wrong happend while trying to run command {:?}", command.get_args());
     process::exit(1);
   });
-
-  assert!(output.success());
 }

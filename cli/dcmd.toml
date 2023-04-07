@@ -1,0 +1,5 @@
+[docker]
+folder = '.docker'
+compose_file = '.docker/docker-compose.yml'
+compose_env_file = '.docker/.env'
+stop_timeout = 3
