@@ -1,0 +1,7 @@
+# Ignore tests files
+/target
+.docker
+.bundler
+
+# Ignore system files
+.DS_Store
