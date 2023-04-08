@@ -8,7 +8,7 @@ pub struct ConfigEnv {
   docker_compose_file: String,
   docker_env_vars: IndexMap<String, String>,
   stop_timeout: u32,
-  version: String,
+  version: &'static str,
 }
 
 impl Clone for ConfigEnv {
@@ -18,7 +18,7 @@ impl Clone for ConfigEnv {
       docker_compose_file: self.docker_compose_file.clone(),
       docker_env_vars: self.docker_env_vars.clone(),
       stop_timeout: self.stop_timeout,
-      version: self.version.clone(),
+      version: self.version,
     }
   }
 }
@@ -38,12 +38,12 @@ impl ConfigEnv {
       docker_compose_file: toml_config.docker.compose_file,
       docker_env_vars,
       stop_timeout: toml_config.docker.stop_timeout,
-      version: String::from("1.0.5")
+      version: "1.0.4"
     }
   }
 
   pub fn get_version(&self) -> &str {
-    self.version.as_str()
+    self.version
   }
 
   pub fn get_stop_timeout(&self) -> &u32 {

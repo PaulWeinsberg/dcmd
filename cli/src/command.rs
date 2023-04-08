@@ -84,7 +84,7 @@ pub fn handle(config: &Config) {
     Command::Help(_) => builtin::handle_help(),
     Command::Version(_) => builtin::handle_version(config),
     Command::List(_) => builtin::handle_list(config),
-    Command::Update(_) => todo!(),
+    Command::Update(_) => println!("Feature will be implemented soon..."),
     Command::Custom(_) => custom::handle_custom(config),
     Command::Dns(_) => dns::handle_dns(config),
   }
