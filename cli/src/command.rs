@@ -1,10 +1,9 @@
-use std::{slice::Iter, fmt::{Display, self}};
-
+use std::{slice::Iter, fmt::{Display, self}, process};
 use crate::config::Config;
 
-use self::builtin::*;
-
 pub mod builtin;
+pub mod custom;
+pub mod dns;
 
 #[derive(Debug)]
 pub enum Command<'a> {
@@ -18,8 +17,7 @@ pub enum Command<'a> {
   Version(&'a str),
   List(&'a str),
   Custom(&'a str),
-  DNSStart(&'a str),
-  DNSStop(&'a str),
+  Dns(&'a str),
 }
 
 impl<'a> Clone for Command<'a> {
@@ -35,8 +33,7 @@ impl<'a> Clone for Command<'a> {
       Command::Version(value) => Command::Version(value),
       Command::List(value) => Command::List(value),
       Command::Custom(value) => Command::Custom(value),
-      Command::DNSStart(value) => Command::Custom(value),
-      Command::DNSStop(value) => Command::Custom(value),
+      Command::Dns(value) => Command::Custom(value),
     }
   }
 }
@@ -54,15 +51,14 @@ impl<'a> Display for Command<'a> {
       Command::List(value) => write!(f, "{}", value),
       Command::Update(value) => write!(f, "{}", value),
       Command::Custom(value) => write!(f, "{}", value),
-      Command::DNSStart(value) => write!(f, "{}", value),
-      Command::DNSStop(value) => write!(f, "{}", value),
+      Command::Dns(value) => write!(f, "{}", value),
     }
   }
 }
 
 impl Command<'static> {
   pub fn iter_builtin() -> Iter<'static, Command<'static>> {
-    static COMMANDS: [Command; 11] = [
+    static COMMANDS: [Command; 10] = [
       Command::Start("start"),
       Command::Stop("strop"),
       Command::Restart("restart"),
@@ -72,8 +68,7 @@ impl Command<'static> {
       Command::Version("version"),
       Command::List("list"),
       Command::Update("update"),
-      Command::DNSStart("dns-start"),
-      Command::DNSStop("dns-stop"),
+      Command::Dns("dns"),
     ];
     COMMANDS.iter()
   }
@@ -81,18 +76,17 @@ impl Command<'static> {
 
 pub fn handle(config: &Config) {
   match config.get_command() {
-    Command::Start(_) => handle_start(config),
-    Command::Stop(_) => handle_stop(config),
-    Command::Restart(_) => handle_restart(config),
-    Command::Up(_) => handle_up(config),
-    Command::Down(_) => handle_down(config),
-    Command::Help(_) => handle_help(),
-    Command::Version(_) => handle_version(config),
-    Command::List(_) => handle_list(config),
-    Command::Update(_) => println!("Coming soon..."),
-    Command::Custom(_) => handle_custom(config),
-    Command::DNSStart(_) => println!("Coming soon..."),
-    Command::DNSStop(_) => println!("Coming soon..."),
+    Command::Start(_) => builtin::handle_start(config),
+    Command::Stop(_) => builtin::handle_stop(config),
+    Command::Restart(_) => builtin::handle_restart(config),
+    Command::Up(_) => builtin::handle_up(config),
+    Command::Down(_) => builtin::handle_down(config),
+    Command::Help(_) => builtin::handle_help(),
+    Command::Version(_) => builtin::handle_version(config),
+    Command::List(_) => builtin::handle_list(config),
+    Command::Update(_) => todo!(),
+    Command::Custom(_) => custom::handle_custom(config),
+    Command::Dns(_) => dns::handle_dns(config),
   }
 }
 
@@ -119,8 +113,16 @@ pub fn get_command<'a>(args: &'a [String], default: &'a String) -> Command<'a> {
     "list" => Command::List("list"),
     "ls" => Command::List("list"),
     "--ls" => Command::List("list"),
-    "dns-start" => Command::DNSStart("dns-start"),
-    "dns-stop" => Command::DNSStart("dns-stop"),
+    "dns" => Command::Dns("dns"),
     custom => Command::Custom(custom)
   }
+}
+
+fn exec_command(mut command: std::process::Command) {
+  command
+  .status()
+  .unwrap_or_else(|_| {
+    println!("Something wrong happend while trying to run command {:?}", command.get_args());
+    std::process::exit(1);
+  });
 }
