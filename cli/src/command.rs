@@ -1,4 +1,4 @@
-use std::{slice::Iter, fmt::{Display, self}, process};
+use std::{slice::Iter, fmt::{Display, self}};
 use crate::config::Config;
 
 pub mod builtin;

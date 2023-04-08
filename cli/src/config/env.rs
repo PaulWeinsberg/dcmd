@@ -70,8 +70,13 @@ impl ConfigEnv {
     compose_env_file = '.docker/.env'
     stop_timeout = 3"#));
 
-    toml::from_str::<ConfigToml>(toml_config.as_str())
-    .expect("dcmd.toml is not deserializable")
+    match toml::from_str::<ConfigToml>(toml_config.as_str()) {
+      Ok(toml) => toml,
+      Err(err) => {
+        println!("toml.dcmd is not deserializable, error: {}", err.message());
+        panic!()
+      }
+    }
 
   }
 
