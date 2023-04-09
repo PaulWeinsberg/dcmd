@@ -73,7 +73,7 @@ impl ConfigEnv {
     match toml::from_str::<ConfigToml>(toml_config.as_str()) {
       Ok(toml) => toml,
       Err(err) => {
-        println!("toml.dcmd is not deserializable, error: {}", err.message());
+        println!("dcmd.toml is not deserializable, error: {}", err.message());
         panic!()
       }
     }
