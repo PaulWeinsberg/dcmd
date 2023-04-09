@@ -137,6 +137,9 @@ If you need several commands, separated by apps for example you can create a dir
 dcmd my_first_app npm install
 dcmd my_second_app npm install
 ```
+
+Finally every variables that you set in the .docker/.env file can be used in your commands script.
+
 ## Project structure
 
 **Default project structure**
