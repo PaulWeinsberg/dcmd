@@ -102,7 +102,7 @@ dcmd dns stop
 
 | Command | Description |
 |---------|-------------|
-| dcmd up | Initialise the project by creating services |
+| dcmd up | Initialise the project by creating services, should run again if you make a changes in your compose file |
 | dcmd down | Remove project containers and related data |
 | dcmd start [service] | Start the project or a service |
 | dcmd stop [service] | Stop the project or a service |
