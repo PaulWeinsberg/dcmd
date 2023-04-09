@@ -63,6 +63,12 @@ sudo mv dcmd /usr/local/bin/dcmd
 
 Or find any other path that exist in your $PATH variable.
 
+Fix MacOS quarantine issue :
+
+```sh
+sudo xattr -d com.apple.quarantine /usr/local/bin/dcmd
+```
+
 ## Project configuration
 
 **Docker environment variables**
