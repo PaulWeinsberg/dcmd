@@ -1,88 +1,76 @@
 # Docker Commands
 
+**Version: 1.0.4**
+
 Docker commands provide a lightweight docker compose development kit with the aim of :
 
-- avoid any other dependencies or heavy VM like DDEV or Docksal projects.
-- use VHOST proxy through docker container
-- make your life easier by automating long and reccurent commands
-- share project easily with teammates
+- avoiding any other dependencies or heavy VM like DDEV or Docksal projects.
+- using VHOST proxy through docker container
+- making your life easier by automating long and reccurent commands
+- sharing project easily with teammates
 
-How does it work ?
+**Does the project still working without Docker Commands CLI ?**
 
-- A CLI to use custom and built-in commands
+Yes, Docker Commands it's just a wrapper, not a requirement, it's up to the developer to use it or not. If you don't want to use it, setup a dns mask on your own to keep VHOST working otherwise use localhost as most of the project under docker compose.
+
+**How does it work ?**
+
+- A lightweight CLI to use custom, built-in commands and run local DNS mask
 - A simple configuration to resolve VHOSTS from you local machine
 
-## OS configuration (example for MacOS)
+# Get Started
+## OS configuration
 
-**Install dnsmasq**
-
-`brew install dnsmasq`
-
-**Register new mask**
-
-`echo "address=/dev.local/127.0.0.1" >> $(brew --prefix)/etc/dnsmasq.conf`
-
-`echo "port=53" >> $(brew --prefix)/etc/dnsmasq.conf`
-
-Start or restart the service if is already running
-
-`sudo brew services restart dnsmasq`
-
+### MacOS
 
 **Setup custom DNS resolver**
 
-`sudo mkdir -v /etc/resolver`
+```sh
+sudo mkdir -v /etc/resolver
+sudo echo "nameserver 127.0.0.1" >> /etc/resolver/dev.local
+```
 
-`sudo echo "nameserver 127.0.0.1" >> /etc/resolver/dev.local`
+### Linux (major distributions)
 
-✅ You're good to go
+**Setup custom DNS resolver**
+```sh
+sudo echo "nameserver 127.0.0.1" >> /etc/resolv.conf
+```
 
-## Docksal cohabitation conf 🚧 (skip it if you're not affected)
+## CLI installation
 
-If you still running some docksal projects, you'll have to turn off the Docksal built-in DNS by running the following command :
+As the project should come with the least possible dependencies, the CLI is a standalone executable.
 
-`fin config set --global DOCKSAL_DNS_DISABLED=1`
+[MacOS apple chip (arm64)](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/aarch64-apple-darwin/dcmd)
 
-`fin system reset`
+[MacOS intel chip (amd64)](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/x86_64-apple-darwin/dcmd)
 
-These commands will disable the Docksal DNS so you need to update our own DNS service by following these steps :
+[Linux aarch64 (arm64)](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/aarch64-unknown-linux-gnu/dcmd)
 
-`echo "address=/docksal.site/127.0.0.1" >> $(brew --prefix)/etc/dnsmasq.conf`
+[Linux x86_64 (amd64)](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/x86_64-unknown-linux-gnu/dcmd)
 
-`sudo echo "nameserver 127.0.0.1" >> /etc/resolver/docksal.site`
-
-`sudo brew services restart dnsmasq`
-
-Then, you're local will run and resolve Docksal project as before.
-
-Note that you can not run any Docker project that listen to port 80 at the same time with Docksal, so you have to stop its system ahead by running :
-
-`fin system stop`
-
-Also you should redo this command after start (sometimes its required)
-
-`sudo cp /etc/resolver/dev.local /etc/resolver/docksal.site && brew services restart dnsmasq`
-
-## Add the CLI executable
-
-As the project should come with the least possible dependencies, the CLI is a simple bash file that you can customize as well.
 To make it accessible from anywhere on your local machine as an executable run the two lines below :
 
-`chmod +x dcmd`
+```sh
+chmod +x dcmd
+sudo mv dcmd /usr/local/bin/dcmd
+```
 
-`sudo cp dcmd /usr/local/bin`
+Or find any other path that exist in your $PATH variable.
 
+✅ You're good to go
 
 ## Project configuration
 
 **Docker environment variables**
 
-Copy .docker/.env.example ro .dockser/.env, then set the right variables values :
+Copy .docker/.env.example to .dockser/.env, then set the right variables values for your project :
 
 | Name |	Description |	Example |
 |------|--------------|---------|
-| PROJECT_ROOT	| Where your project is located	| /Users/me/Projects/myproject
-| PROJECT_NAME	  | The name of your project |	my_awesome_project
+| SUBNET_BASE	  | Each project should have its own subnet base | 192.168.[1-254] or 172.17.[1-254]
+| PROJECT_ROOT  | Where your project is located	| /Users/me/Projects/myproject
+| PROJECT_NAME	| The name of your project      |	my_awesome_project
 
 **Project name**
 
@@ -96,46 +84,33 @@ name: my_awesome_project
 services:
   # services below...
 ```
+## DNS server
 
-## Basics commands
+In order to resolves *.dev.local domains from your host start the docker DNS server by running :
 
-**Initialisation**
+```sh
+dcmd dns start
+```
 
-In the .docker parent directory run the following command :
+You can stop it whenever you want
 
-`dcmd up`
+```sh
+dcmd dns stop
+```
 
-If you've made a change in Dockerfiles or in the docker-compose.yml you should rebuild the containers by running the same command.
+## Built-in commands
 
-**Start a project**
-
-`dcmd start`
-
-**Stop a project**
-
-`dcmd stop`
-
-**Restart a project**
-
-`dcmd restart`
-
-**Delete project and remove containers and data**
-
-`dcmd down`
-
-**Update DCMD to the latest version**
-
-`dcmd update`
-
-**List available commands**
-
-`dcmd ls`
-
-**Override default docker folder**
-
-You can override default docker folder by passing the variable DOCKER_FOLDER=your/path/from/execution :
-
-`DOCKER_FOLDER=.custom-docker-folder/local-dev dcmd start`
+| Command | Description |
+|---------|-------------|
+| dcmd up | Initialise the project by creating services |
+| dcmd down | Remove project containers and related data |
+| dcmd start [service] | Start the project or a service |
+| dcmd stop [service] | Stop the project or a service |
+| dcmd restart [service] | Restart the project or a service |
+| dcmd ls | List available commands |
+| dcmd help | Show help |
+| dcmd dns start | Start the DNS server |
+| dcmd dns stop | Stop the DNS server |
 
 ## Custom commands
 
@@ -143,21 +118,82 @@ These templates provide a user friendly way to write and execute your own comman
 
 Then you can run any commands that you can find and check in the .docker/commands path. For example in a Drupal project you can run the command below to import your database :
 
-`dcmd db-import ~/Desktop/my_awesome_db.sql`
+```sh
+dcmd db-import ~/Desktop/my_awesome_db.sql
+```
 
 another exeample with params :
 
-`dcmd npm i --dev`
+```sh
+dcmd npm i --dev
+```
 
 If you need several commands, separated by apps for example you can create a dir in the commands folder and execute commands as well :
 
-`dcmd my_first_app npm install`
+```sh
+dcmd my_first_app npm install
+dcmd my_second_app npm install
+```
+## Project structure
 
-`dcmd my_second_app npm install`
+**Default project structure**
 
-## Project templates
+```bash
+project_root
+├── .docker
+│   ├── .env
+│   ├── commands
+│   │   ├── my_custom_command
+│   ├── docker-compose.yml
+│   ├── etc
+│   │   └── service_name
+│   │       └── service_config.conf
+│   └── services
+│       └── service_name
+│           └── Dockerfile
+├── dcmd.toml # optional
+└── ...every files related to your project, framework, etc
+```
 
-### Drupal
+**Custom project structure**
+
+If you need to change the default project structure you can do it by creating a dcmd.toml file at project root and set the right paths.
+
+All the paths are relative to the project root but you can use absolute paths as well. Note that every variables are required once this file is created.
+
+```toml
+[docker]
+folder = '.docker'
+compose_file = '.docker/docker-compose.yml'
+compose_env_file = '.docker/.env'
+stop_timeout = 3
+```
+
+# Project templates
+
+## Drupal
 
 This configuration has been tested on Drupal 8, 9 and 10.
 The node container is optional but may be required for frontend development it has been configured to work with the [agnostic-bundler](https://github.com/PaulWeinsberg/agnostic-bundler) in a .bundler folder at project root.
+
+# Tested Docker versions
+
+## MacOS
+
+- Docker Desktop 4.17.0
+  - Docker Engine 20.10.23
+  - Docker Compose 2.15.1
+
+- Docker Desktop 4.18.0
+  - Docker Engine 20.10.24
+  - Docker Compose 2.17.2
+
+## Linux
+
+- Stack
+  - Docker Engine 20.10.23
+  - Docker Compose 2.15.1
+
+- Stack
+  - Docker Engine 20.10.24
+  - Docker Compose 2.17.2
