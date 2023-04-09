@@ -37,6 +37,10 @@ sudo echo "nameserver 127.0.0.1" >> /etc/resolver/dev.local
 sudo echo "nameserver 127.0.0.1" >> /etc/resolv.conf
 ```
 
+### Windows WSL2
+
+Will come soon, you can use the installation for Linux x86_64 in the WSL.
+
 ## CLI installation
 
 As the project should come with the least possible dependencies, the CLI is a standalone executable and it's the only thing you need to install.
