@@ -4,12 +4,12 @@ set -e
 
 DEFAULT_TASK="install"
 
-if [[ -z $PARAMS ]]
+if [[ -z $@ ]]
 then
     echo -e "empty task param, run default ${DEFAULT_TASK} task"
     TASK=$DEFAULT_TASK
 else
-    TASK=$PARAMS
+    TASK=$@
 fi
 
 echo -e "running $TASK task"

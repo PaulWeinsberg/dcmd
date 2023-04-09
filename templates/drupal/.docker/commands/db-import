@@ -2,5 +2,5 @@
 
 set -e
 
-docker exec -i ${PROJECT_NAME}_db mysql -u root -proot default < "$PARAMS"
+docker exec -i ${PROJECT_NAME}_db mysql -u root -proot default < "$@"
 

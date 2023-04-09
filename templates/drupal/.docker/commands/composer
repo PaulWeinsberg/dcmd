@@ -2,7 +2,5 @@
 
 set -e
 
-TASK="$@"
-
-docker exec -it ${PROJECT_NAME}_php /bin/bash -c "composer $PARAMS"
+docker exec -it ${PROJECT_NAME}_php /bin/bash -c "composer $@"
 
