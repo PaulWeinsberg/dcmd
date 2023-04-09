@@ -39,15 +39,16 @@ sudo echo "nameserver 127.0.0.1" >> /etc/resolv.conf
 
 ## CLI installation
 
-As the project should come with the least possible dependencies, the CLI is a standalone executable.
+As the project should come with the least possible dependencies, the CLI is a standalone executable and it's the only thing you need to install.
 
-[MacOS apple chip (arm64)](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/aarch64-apple-darwin/dcmd)
+<!-- Convert links below to be inside a table -->
 
-[MacOS intel chip (amd64)](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/x86_64-apple-darwin/dcmd)
-
-[Linux aarch64 (arm64)](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/aarch64-unknown-linux-gnu/dcmd)
-
-[Linux x86_64 (amd64)](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/x86_64-unknown-linux-gnu/dcmd)
+| OS | Architecture | Link |
+|----|--------------|------|
+| MacOS | apple chip (arm64) | [download](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/aarch64-apple-darwin/dcmd) |
+| MacOS | intel chip (amd64) | [download](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/x86_64-apple-darwin/dcmd) |
+| Linux | aarch64 (arm64) | [download](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/aarch64-unknown-linux-gnu/dcmd) |
+| Linux | x86_64 (amd64) | [download](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/x86_64-unknown-linux-gnu/dcmd) |
 
 To make it accessible from anywhere on your local machine as an executable run the two lines below :
 
@@ -57,8 +58,6 @@ sudo mv dcmd /usr/local/bin/dcmd
 ```
 
 Or find any other path that exist in your $PATH variable.
-
-✅ You're good to go
 
 ## Project configuration
 
@@ -97,6 +96,10 @@ You can stop it whenever you want
 ```sh
 dcmd dns stop
 ```
+
+**Troubleshooting**
+
+If you have any issue related to the port 53, check if you have another DNS server running on your machine (dnsmasq, docksal, ddev dns for example), if so stop it and try again.
 
 ## Built-in commands
 
