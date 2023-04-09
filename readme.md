@@ -103,6 +103,8 @@ If you have any issue related to the port 53, check if you have another DNS serv
 
 ## Built-in commands
 
+Built-in commands are the ones that are provided by the CLI, as the custom commands, they should be run from the project root.
+
 | Command | Description |
 |---------|-------------|
 | dcmd up | Initialise the project by creating services, should run again if you make a changes in your compose file |
@@ -117,9 +119,7 @@ If you have any issue related to the port 53, check if you have another DNS serv
 
 ## Custom commands
 
-These templates provide a user friendly way to write and execute your own commands, they also come with some preconfigured commands that require no external dependencies, just shell script.
-
-Then you can run any commands that you can find and check in the .docker/commands path. For example in a Drupal project you can run the command below to import your database :
+These templates provide a user friendly way to write and execute your own commands, they also come with some pre-configured commands that require no external dependencies, just shell script. Then you can run any commands that you can find and check in the .docker/commands path. For example in a Drupal project you can run the command below to import your database :
 
 ```sh
 dcmd db-import ~/Desktop/my_awesome_db.sql
