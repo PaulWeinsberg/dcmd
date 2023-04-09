@@ -45,8 +45,6 @@ Will come soon, you can use the installation for Linux x86_64 in the WSL.
 
 As the project should come with the least possible dependencies, the CLI is a standalone executable and it's the only thing you need to install.
 
-<!-- Convert links below to be inside a table -->
-
 | OS | Architecture | Link |
 |----|--------------|------|
 | MacOS | apple chip (arm64) | [download](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/aarch64-apple-darwin/dcmd) |
