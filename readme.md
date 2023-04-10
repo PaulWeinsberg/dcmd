@@ -91,11 +91,25 @@ Add-DnsClientNrptRule -Namespace ".dev.local" -NameServers "127.0.0.1"
   fin system stop
   ```
 
+  Example with dnsmaq on MacOS :
+
+  ```sh
+  sudo brew services stop dnsmasq
+  ```
+
+  Example with dnsmaq on Linux :
+
+  ```sh
+  sudo systemctl stop dnsmasq
+  # Can be disabled to avoid restarting it on reboot
+  sudo systemctl disable dnsmasq
+  ```
+
   Example with systemd-resolved :
 
   ```sh
   sudo systemctl stop systemd-resolved
-  # Can be disabled too to avoid restarting it on reboot
+  # Can be disabled to avoid restarting it on reboot
   sudo systemctl disable systemd-resolved
   ```
   <br>
