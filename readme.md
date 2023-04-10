@@ -39,7 +39,13 @@ sudo echo "nameserver 127.0.0.1" >> /etc/resolv.conf
 
 ### Windows WSL2
 
-Will come soon, you can use the installation for Linux x86_64 in the WSL.
+**Setup custom DNS resolver**
+
+Run PowerShell as administrator then run the following commands :
+
+```sh
+Add-DnsClientNrptRule -Namespace ".dev.local" -NameServers "127.0.0.1"
+```
 
 ## CLI installation
 
@@ -50,9 +56,9 @@ As the project should come with the least possible dependencies, the CLI is a st
 | MacOS | apple chip (arm64) | [download](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/aarch64-apple-darwin/dcmd) |
 | MacOS | intel chip (amd64) | [download](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/x86_64-apple-darwin/dcmd) |
 | Linux | aarch64 (arm64) | [download](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/aarch64-unknown-linux-gnu/dcmd) |
-| Linux | x86_64 (amd64) | [download](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/x86_64-unknown-linux-gnu/dcmd) |
+| Linux (or Windows WSL2) | x86_64 (amd64) | [download](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/x86_64-unknown-linux-gnu/dcmd) |
 
-To make it accessible from anywhere on your local machine as an executable run the two lines below :
+To make it accessible from anywhere on your local machine as an executable run the two lines below in your shell or in WSL for Windows :
 
 ```sh
 chmod +x dcmd
@@ -61,7 +67,7 @@ sudo mv dcmd /usr/local/bin/dcmd
 
 Or find any other path that exist in your $PATH variable.
 
-Fix MacOS quarantine issue :
+**Fix MacOS quarantine issue :**
 
 ```sh
 sudo xattr -d com.apple.quarantine /usr/local/bin/dcmd
@@ -194,20 +200,21 @@ The node container is optional but may be required for frontend development it h
 
 ## MacOS
 
-- Docker Desktop 4.17.0
-  - Docker Engine 20.10.23
-  - Docker Compose 2.15.1
-
-- Docker Desktop 4.18.0
-  - Docker Engine 20.10.24
-  - Docker Compose 2.17.2
+| Docker Desktop | Docker Engine | Docker Compose |
+|----------------|---------------|----------------|
+| 4.18.0         | 20.10.24      | 2.17.2         |
+| 4.17.0         | 20.10.23      | 2.15.1         |
 
 ## Linux
 
-- Stack
-  - Docker Engine 20.10.23
-  - Docker Compose 2.15.1
+| Docker Engine | Docker Compose |
+|---------------|----------------|
+| 23.0.3        | 2.17.2         |
+| 20.10.24      | 2.17.2         |
+| 20.10.23      | 2.15.1         |
 
-- Stack
-  - Docker Engine 20.10.24
-  - Docker Compose 2.17.2
+## Windows WSL2
+
+| Docker Desktop | Docker Engine | Docker Compose |
+|----------------|---------------|----------------|
+| 4.18.0         | 20.10.24      | 2.17.2         |
