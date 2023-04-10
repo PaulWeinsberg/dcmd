@@ -19,33 +19,6 @@ Yes, Docker Commands it's just a wrapper, not a requirement, it's up to the deve
 - A simple configuration to resolve VHOSTS from you local machine
 
 # Get Started
-## OS configuration
-
-### MacOS
-
-**Setup custom DNS resolver**
-
-```sh
-sudo mkdir -v /etc/resolver
-sudo echo "nameserver 127.0.0.1" >> /etc/resolver/dev.local
-```
-
-### Linux (major distributions)
-
-**Setup custom DNS resolver**
-```sh
-sudo echo "nameserver 127.0.0.1" >> /etc/resolv.conf
-```
-
-### Windows WSL2
-
-**Setup custom DNS resolver**
-
-Run PowerShell as administrator then run the following commands :
-
-```sh
-Add-DnsClientNrptRule -Namespace ".dev.local" -NameServers "127.0.0.1"
-```
 
 ## CLI installation
 
@@ -73,6 +46,77 @@ Or find any other path that exist in your $PATH variable.
 sudo xattr -d com.apple.quarantine /usr/local/bin/dcmd
 ```
 
+## DNS domain
+
+Docker commands needs to resolve VHOSTS from your local machine, in order to do so you need to setup a custom DNS domain that point to your local DNS server.
+
+### MacOS
+
+**Setup custom DNS resolver**
+
+```sh
+sudo mkdir -v /etc/resolver
+echo "nameserver 127.0.0.1" | sudo tee /etc/resolver/dev.local
+```
+
+### Linux (major distributions)
+
+**Setup custom DNS resolver**
+
+```sh
+echo "nameserver 127.0.0.1" | sudo tee -a /etc/resolv.conf
+```
+
+Note that if the queries are too long maybe you already have a nameserver configured which it used before and then switch to the right one, in that case you can edit the file /etc/resolv.conf and move the previous line on top of it.
+
+### Windows WSL2
+
+**Setup custom DNS resolver**
+
+Run PowerShell as administrator then run the following commands :
+
+```sh
+Add-DnsClientNrptRule -Namespace ".dev.local" -NameServers "127.0.0.1"
+```
+
+### Common issues
+<details>
+  <summary>Port 53 already alocated</summary>
+  <br>
+  If you have any issue related to the port 53, check if you have another DNS server running on your machine (dnsmasq, docksal, ddev dns for example), if so stop it and try again.
+
+  Example with docksal :
+
+  ```sh
+  fin system stop
+  ```
+
+  Example with systemd-resolved :
+
+  ```sh
+  sudo systemctl stop systemd-resolved
+  # Can be disabled too to avoid restarting it on reboot
+  sudo systemctl disable systemd-resolved
+  ```
+  <br>
+</details>
+
+## DNS server
+
+### Start and stop the DNS server
+
+In order to resolves *.dev.local domains from your host start the docker DNS server by running :
+
+```sh
+dcmd dns start
+```
+
+You can stop it whenever you want
+
+```sh
+dcmd dns stop
+```
+
 ## Project configuration
 
 **Docker environment variables**
@@ -97,23 +141,6 @@ name: my_awesome_project
 services:
   # services below...
 ```
-## DNS server
-
-In order to resolves *.dev.local domains from your host start the docker DNS server by running :
-
-```sh
-dcmd dns start
-```
-
-You can stop it whenever you want
-
-```sh
-dcmd dns stop
-```
-
-**Troubleshooting**
-
-If you have any issue related to the port 53, check if you have another DNS server running on your machine (dnsmasq, docksal, ddev dns for example), if so stop it and try again.
 
 ## Built-in commands
 
