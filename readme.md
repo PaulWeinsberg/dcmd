@@ -11,11 +11,11 @@ Docker commands provide a lightweight docker compose development kit with the ai
 
 **Does the project still working without Docker Commands CLI ?**
 
-Yes, Docker Commands it's just a wrapper, not a requirement, it's up to the developer to use it or not. If you don't want to use it, setup a dns mask on your own to keep VHOST working otherwise use localhost as most of the project under docker compose.
+Yes, Docker Commands it's just a wrapper, not a requirement, it's up to the developer to use it or not. If you don't want to use it, setup a dns server on your own to keep VHOST working otherwise use localhost as most of the project under docker compose.
 
 **How does it work ?**
 
-- A lightweight CLI to use custom, built-in commands and run local DNS mask
+- A lightweight CLI to use custom, built-in commands and run local DNS server
 - A simple configuration to resolve VHOSTS from you local machine
 
 # Get Started
