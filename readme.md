@@ -1,6 +1,6 @@
 # Docker Commands
 
-**Version: 1.0.6**
+**Version: 1.0.7**
 
 Docker commands provide a lightweight docker compose development kit with the aim of :
 
@@ -158,19 +158,19 @@ services:
 
 ## Built-in commands
 
-Built-in commands are the ones that are provided by the CLI, as the custom commands, they should be run from the project root.
+Built-in commands are the ones that are provided by the CLI. Project scoped commands should run from the project root directory, otherwise you will get an error.
 
-| Command | Description |
-|---------|-------------|
-| dcmd up | Initialise the project by creating services, should run again if you make a changes in your compose file |
-| dcmd down | Remove project containers and related data |
-| dcmd start [service] | Start the project or a service |
-| dcmd stop [service] | Stop the project or a service |
-| dcmd restart [service] | Restart the project or a service |
-| dcmd ls | List available commands |
-| dcmd help | Show help |
-| dcmd dns start | Start the DNS server |
-| dcmd dns stop | Stop the DNS server |
+| Command | Description | Type |
+|---------|-------------|------|
+| dcmd up | Initialise the project by creating services, should run again if you make a changes in your compose file | Project |
+| dcmd down | Remove project containers and related data | Project |
+| dcmd start [service] | Start the project or a service | Project |
+| dcmd stop [service] | Stop the project or a service | Project |
+| dcmd restart [service] | Restart the project or a service | Project |
+| dcmd ls | List available commands | Project |
+| dcmd help | Show help | System |
+| dcmd dns start | Start the DNS server | System |
+| dcmd dns stop | Stop the DNS server | System |
 
 ## Custom commands
 

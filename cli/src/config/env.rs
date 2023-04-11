@@ -1,4 +1,4 @@
-use std::{process, fs};
+use std::{fs};
 
 use indexmap::IndexMap;
 
@@ -28,17 +28,14 @@ impl ConfigEnv {
     let toml_config = Self::get_toml_config();
 
     let docker_env_vars = envmnt::parse_file(&toml_config.docker.compose_env_file)
-    .unwrap_or_else(|_| {
-      println!("{} does not exists or is corrupted", toml_config.docker.compose_env_file);
-      process::exit(1);
-    });
+    .unwrap_or(IndexMap::new());
 
     Self {
       docker_folder: toml_config.docker.folder,
       docker_compose_file: toml_config.docker.compose_file,
       docker_env_vars,
       stop_timeout: toml_config.docker.stop_timeout,
-      version: "1.0.6"
+      version: "1.0.7"
     }
   }
 

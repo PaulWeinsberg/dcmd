@@ -12,12 +12,17 @@ pub enum Command<'a> {
   Restart(&'a str),
   Up(&'a str),
   Down(&'a str),
+  List(&'a str),
+  Custom(&'a str),
   Update(&'a str),
   Help(&'a str),
   Version(&'a str),
-  List(&'a str),
-  Custom(&'a str),
   Dns(&'a str),
+}
+
+pub enum CommandType {
+  Project,
+  System,
 }
 
 impl<'a> Clone for Command<'a> {
@@ -28,11 +33,11 @@ impl<'a> Clone for Command<'a> {
       Command::Restart(value) => Command::Restart(value),
       Command::Up(value) => Command::Up(value),
       Command::Down(value) => Command::Down(value),
+      Command::List(value) => Command::List(value),
+      Command::Custom(value) => Command::Custom(value),
       Command::Update(value) => Command::Update(value),
       Command::Help(value) => Command::Help(value),
       Command::Version(value) => Command::Version(value),
-      Command::List(value) => Command::List(value),
-      Command::Custom(value) => Command::Custom(value),
       Command::Dns(value) => Command::Custom(value),
     }
   }
@@ -74,6 +79,24 @@ impl Command<'static> {
   }
 }
 
+impl<'a> Command<'a> {
+  pub fn get_type(&self) -> CommandType {
+    match *self {
+      Command::Start(_) => CommandType::Project,
+      Command::Stop(_) => CommandType::Project,
+      Command::Restart(_) => CommandType::Project,
+      Command::Up(_) => CommandType::Project,
+      Command::Down(_) => CommandType::Project,
+      Command::List(_) => CommandType::Project,
+      Command::Custom(_) => CommandType::Project,
+      Command::Update(_) => CommandType::System,
+      Command::Help(_) => CommandType::System,
+      Command::Version(_) => CommandType::System,
+      Command::Dns(_) => CommandType::System,
+    }
+  }
+}
+
 pub fn handle(config: &Config) {
   match config.get_command() {
     Command::Start(_) => builtin::handle_start(config),
@@ -81,11 +104,11 @@ pub fn handle(config: &Config) {
     Command::Restart(_) => builtin::handle_restart(config),
     Command::Up(_) => builtin::handle_up(config),
     Command::Down(_) => builtin::handle_down(config),
+    Command::List(_) => builtin::handle_list(config),
+    Command::Custom(_) => custom::handle_custom(config),
     Command::Help(_) => builtin::handle_help(),
     Command::Version(_) => builtin::handle_version(config),
-    Command::List(_) => builtin::handle_list(config),
     Command::Update(_) => println!("Feature will be implemented soon..."),
-    Command::Custom(_) => custom::handle_custom(config),
     Command::Dns(_) => dns::handle_dns(config),
   }
 }
