@@ -79,6 +79,22 @@ Run PowerShell as administrator then run the following commands :
 Add-DnsClientNrptRule -Namespace ".dev.local" -NameServers "127.0.0.1"
 ```
 
+## DNS server
+
+### Start and stop the DNS server
+
+In order to resolves *.dev.local domains from your host start the docker DNS server by running :
+
+```sh
+dcmd dns start
+```
+
+You can stop it whenever you want
+
+```sh
+dcmd dns stop
+```
+
 ### Common issues
 <details>
   <summary>Port 53 already alocated</summary>
@@ -114,22 +130,6 @@ Add-DnsClientNrptRule -Namespace ".dev.local" -NameServers "127.0.0.1"
   ```
   <br>
 </details>
-
-## DNS server
-
-### Start and stop the DNS server
-
-In order to resolves *.dev.local domains from your host start the docker DNS server by running :
-
-```sh
-dcmd dns start
-```
-
-You can stop it whenever you want
-
-```sh
-dcmd dns stop
-```
 
 ## Project configuration
 
