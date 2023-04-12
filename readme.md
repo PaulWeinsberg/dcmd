@@ -1,6 +1,6 @@
 # Docker Commands
 
-**Version: 1.0.7**
+**Version: 1.0.8**
 
 Docker commands provide a lightweight docker compose development kit with the aim of :
 

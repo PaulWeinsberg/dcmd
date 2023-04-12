@@ -13,9 +13,11 @@ pub fn handle_custom(config: &Config) {
 
   let is_nested: bool = match config.get_arguments().get(0) {
     Some(arg) => {
-      Path::new(&custom_command_path)
+      let arg_as_file = Path::is_absolute(Path::new(arg));
+      let exists = Path::new(&custom_command_path)
       .join(arg)
-      .is_file()
+      .is_file();
+      !arg_as_file && exists
     },
     _ => false
   };

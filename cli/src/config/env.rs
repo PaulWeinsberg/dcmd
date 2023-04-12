@@ -35,7 +35,7 @@ impl ConfigEnv {
       docker_compose_file: toml_config.docker.compose_file,
       docker_env_vars,
       stop_timeout: toml_config.docker.stop_timeout,
-      version: "1.0.7"
+      version: "1.0.8"
     }
   }
 
