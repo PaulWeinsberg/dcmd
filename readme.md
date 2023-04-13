@@ -123,11 +123,33 @@ dcmd dns stop
 
   Example with systemd-resolved :
 
+
+  In the file /etc/systemd/resolved.conf, uncomment this line
+
   ```sh
-  sudo systemctl stop systemd-resolved
-  # Can be disabled to avoid restarting it on reboot
-  sudo systemctl disable systemd-resolved
+  [Resolve]
+  ...
+  DNSStubListener=no
   ```
+
+  Then replace symlink for /etc/resolv.conf
+
+  ```sh
+  sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+  ```
+
+  Add the nameserver:
+
+  ```sh
+  echo "nameserver 127.0.0.1" | sudo tee -a /etc/resolv.conf
+  ```
+
+  Finally restart systemd-resolved
+
+  ```sh
+  sudo systemctl restart systemd-resolved
+  ```
+
   <br>
 </details>
 
