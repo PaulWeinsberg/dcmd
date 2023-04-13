@@ -3,3 +3,6 @@ linker = "/opt/homebrew/Cellar/x86_64-unknown-linux-gnu/7.2.0/bin/x86_64-unknown
 
 [target.aarch64-unknown-linux-gnu]
 linker = "/opt/homebrew/Cellar/aarch64-unknown-linux-gnu/11.2.0.reinstall/bin/aarch64-unknown-linux-gnu-gcc"
+
+[env]
+BUILD_PLATFORM = "aarch64-apple-darwin"

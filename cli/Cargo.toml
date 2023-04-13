@@ -1,12 +1,13 @@
 [package]
 name = "dcmd"
-version = "1.0.8"
+version = "1.0.9"
 edition = "2021"
 
 [profile.release]
 strip = "debuginfo"
 
 [dependencies]
+current_platform = "0.2.0"
 envmnt = "0.10.4"
 indexmap = "1.9.3"
 serde = { version = "1.0.159", features = ["derive"] }

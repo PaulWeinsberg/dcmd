@@ -44,6 +44,7 @@ pub fn handle_help() {
 
 pub fn handle_version(config: &Config) {
   println!("Docker Commands version: {}", config.get_env().get_version());
+  println!("Platform: {}", config.get_env().get_platform());
 }
 
 pub fn handle_up(config: &Config) {

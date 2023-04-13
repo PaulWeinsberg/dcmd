@@ -1,4 +1,4 @@
-use std::{fs};
+use std::{fs, env};
 
 use indexmap::IndexMap;
 
@@ -9,6 +9,7 @@ pub struct ConfigEnv {
   docker_env_vars: IndexMap<String, String>,
   stop_timeout: u32,
   version: &'static str,
+  platform: &'static str,
 }
 
 impl Clone for ConfigEnv {
@@ -19,6 +20,7 @@ impl Clone for ConfigEnv {
       docker_env_vars: self.docker_env_vars.clone(),
       stop_timeout: self.stop_timeout,
       version: self.version,
+      platform: self.platform
     }
   }
 }
@@ -35,8 +37,13 @@ impl ConfigEnv {
       docker_compose_file: toml_config.docker.compose_file,
       docker_env_vars,
       stop_timeout: toml_config.docker.stop_timeout,
-      version: "1.0.8"
+      version: env!("CARGO_PKG_VERSION"),
+      platform: current_platform::CURRENT_PLATFORM,
     }
+  }
+
+  pub fn get_platform(&self) -> &str {
+    self.platform
   }
 
   pub fn get_version(&self) -> &str {
