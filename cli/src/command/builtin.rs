@@ -1,4 +1,6 @@
-use std::{io::{Error}, process::{Command}, fs::{self, DirEntry}, path::Path};
+use std::{io::{Error}, process::{Command}, fs::{self, DirEntry}, path::Path, env};
+
+use curl::easy::Easy;
 
 use crate::config::Config;
 
@@ -40,6 +42,33 @@ pub fn handle_list(config: &Config) {
 
 pub fn handle_help() {
   println!("Run dcmd ls to see all available commands");
+}
+
+pub fn handle_update(config: &Config) {
+  println!("Updating CLI for platform: {}", config.get_env().get_platform());
+
+  let mut url = String::from(env!("GITHUB_URL"));
+  url.push_str("/main/cli/bin/");
+  url.push_str(config.get_env().get_platform());
+  url.push_str("/dcmd");
+
+  let mut easy = Easy::new();
+  easy.url(url.as_str()).unwrap();
+
+  easy
+  .transfer()
+  .write_function(|data| {
+    fs::write(env::current_exe().unwrap(), data)
+    .expect("Can't write file to the destination path.");
+    Ok(data.len())
+  })
+  .expect("Error while writing the file");
+
+  easy
+  .perform()
+  .expect("Error while fetching data from the remote server");
+
+  println!("CLI successfully updated ✅");
 }
 
 pub fn handle_version(config: &Config) {

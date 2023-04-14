@@ -108,7 +108,7 @@ pub fn handle(config: &Config) {
     Command::Custom(_) => custom::handle_custom(config),
     Command::Help(_) => builtin::handle_help(),
     Command::Version(_) => builtin::handle_version(config),
-    Command::Update(_) => println!("Feature will be implemented soon..."),
+    Command::Update(_) => builtin::handle_update(config),
     Command::Dns(_) => dns::handle_dns(config),
   }
 }

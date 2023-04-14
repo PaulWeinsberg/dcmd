@@ -1,6 +1,6 @@
 # Docker Commands
 
-**Version: 1.0.9**
+**Version: 1.0.10**
 
 Docker commands provide a lightweight docker compose development kit with the aim of :
 
@@ -191,6 +191,7 @@ Built-in commands are the ones that are provided by the CLI. Project scoped comm
 | dcmd restart [service] | Restart the project or a service | Project |
 | dcmd ls | List available commands | Project |
 | dcmd help | Show help | System |
+| dcmd update | Update CLI | System |
 | dcmd dns start | Start the DNS server | System |
 | dcmd dns stop | Stop the DNS server | System |
 
