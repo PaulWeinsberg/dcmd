@@ -184,7 +184,7 @@ Built-in commands are the ones that are provided by the CLI. Project scoped comm
 
 | Command | Description | Type |
 |---------|-------------|------|
-| dcmd up | Initialise the project by creating services, should run again if you make a changes in your compose file | Project |
+| dcmd up [service] | Initialise a project or a service, should run again if you make a changes in your compose file | Project |
 | dcmd down | Remove project containers and related data | Project |
 | dcmd start [service] | Start the project or a service | Project |
 | dcmd stop [service] | Stop the project or a service | Project |
