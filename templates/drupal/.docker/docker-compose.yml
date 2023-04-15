@@ -78,6 +78,7 @@ services:
     volumes:
       - ${PROJECT_ROOT}:/usr/local/apache2/htdocs
       - ${PROJECT_ROOT}/.docker/etc/php/php-fpm.conf:/usr/local/etc/php-fpm.conf
+      - ${PROJECT_ROOT}/.docker/etc/php/php.ini:/usr/local/etc/php/php.ini
     networks:
       - mainnet
 
