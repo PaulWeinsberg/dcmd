@@ -4,10 +4,24 @@
  */
 
 .heroBanner {
-  padding: 4rem 0;
+  padding-top: 4rem;
   text-align: center;
   position: relative;
   overflow: hidden;
+  .heroTitle {
+    font: { size: 2rem; }
+    color: var(--ifm-color-primary);
+    @media screen and (min-width: 996px) {
+      font: { size: 3.5rem; }
+    }
+  }
+  .heroSubtitle {
+    font: { size: 1.25rem; }
+    color: var(--ifm-color-content);
+    @media screen and (min-width: 996px) {
+      font: { size: 1.25rem; }
+    }
+  }
 }
 
 @media screen and (max-width: 996px) {
@@ -20,4 +34,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 2rem;
+  @media screen and (min-width: 996px) {
+    margin-top: 5rem;
+  }
+}
+
+main {
+  margin: 3rem;
+  @media screen and (min-width: 996px) {
+    margin-top: 7rem;
+  }
 }
