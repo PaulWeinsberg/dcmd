@@ -1,0 +1,35 @@
+---
+sidebar_position: 2
+---
+
+# CLI Installation
+
+As the project should come with the least possible dependencies, the CLI is a standalone executable and it's the only thing you need to install.
+
+| OS | Architecture | Link |
+|----|--------------|------|
+| MacOS | apple chip (arm64) | [download](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/aarch64-apple-darwin/dcmd) |
+| MacOS | intel chip (amd64) | [download](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/x86_64-apple-darwin/dcmd) |
+| Linux (or Windows WSL2) | aarch64 (arm64) | [download](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/aarch64-unknown-linux-gnu/dcmd) |
+| Linux (or Windows WSL2) | x86_64 (amd64) | [download](https://github.com/PaulWeinsberg/dcmd/raw/main/cli/bin/x86_64-unknown-linux-gnu/dcmd) |
+
+If you don't know which architecture you have, you can run the following command in your terminal (in WSL2 for Windows) :
+
+```sh
+uname -m
+```
+
+To make it accessible from anywhere on your local machine as an executable run the two lines below in your shell or in WSL for Windows :
+
+```sh
+chmod +x dcmd
+sudo mv dcmd /usr/local/bin/dcmd
+```
+
+Or find any other path that exist in your $PATH variable.
+
+**Fix MacOS quarantine issue :**
+
+```sh
+sudo xattr -d com.apple.quarantine /usr/local/bin/dcmd
+```

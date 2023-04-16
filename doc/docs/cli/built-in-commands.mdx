@@ -1,0 +1,69 @@
+---
+sidebar_position: 0
+---
+
+# Built-in commands
+
+Built-in commands are the ones that are provided by the CLI. Project scoped commands should run from the project root directory, otherwise you will get an error.
+
+<table>
+  <thead>
+    <tr>
+      <th style={{ minWidth: '250px' }}>Command</th>
+      <th>Description</th>
+      <th>Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>dcmd up [service]</td>
+      <td>Initialise a project or a service, should run again if you make a changes in your compose file</td>
+      <td>Project</td>
+    </tr>
+    <tr>
+      <td>dcmd down</td>
+      <td>Remove project containers and related data</td>
+      <td>Project</td>
+    </tr>
+    <tr>
+      <td>dcmd start [service]</td>
+      <td>Start the project or a service</td>
+      <td>Project</td>
+    </tr>
+    <tr>
+      <td>dcmd stop [service]</td>
+      <td>Stop the project or a service</td>
+      <td>Project</td>
+    </tr>
+    <tr>
+      <td>dcmd restart [service]</td>
+      <td>Restart the project or a service</td>
+      <td>Project</td>
+    </tr>
+    <tr>
+      <td>dcmd ls</td>
+      <td>List available commands</td>
+      <td>Project</td>
+    </tr>
+    <tr>
+      <td>dcmd help</td>
+      <td>Show help</td>
+      <td>System</td>
+    </tr>
+    <tr>
+      <td>dcmd update</td>
+      <td>Update CLI</td>
+      <td>System</td>
+    </tr>
+    <tr>
+      <td>dcmd dns start</td>
+      <td>Start the DNS server</td>
+      <td>System</td>
+    </tr>
+    <tr>
+      <td>dcmd dns stop</td>
+      <td>Stop the DNS server</td>
+      <td>System</td>
+    </tr>
+  </tbody>
+</table>

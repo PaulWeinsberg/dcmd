@@ -1,0 +1,34 @@
+---
+sidebar_position: 6
+---
+
+# Start a project
+
+## Initialize a project
+
+To start a new project, you can use the `dcmd up` command. It will create a new project by creating a every required services and start them.
+It simply runs the `docker-compose up -d` command with the provided variables in the `.docker/.env` file.
+
+```sh
+dcmd up
+```
+
+## Start an existing project
+
+If you already have a project, you can start it by running the `dcmd start` command.
+
+```sh
+dcmd start
+```
+
+## Stop a project
+
+To stop a project, you can use the `dcmd stop` command. It will stop every services that are running.
+
+```sh
+dcmd stop
+```
+
+## Learn more
+
+You can find more information about the buit-in commands in the [CLI](/docs/category/cli) section.

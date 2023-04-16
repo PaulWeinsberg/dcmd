@@ -1,0 +1,68 @@
+---
+sidebar_position: 5
+---
+
+# Project configuration
+
+
+## Docker environment variables
+
+Copy `.docker/.env.example` to `.dockser/.env`, then set the right variables values for your project :
+
+| Name |	Description |	Example |
+|------|--------------|---------|
+| SUBNET_BASE	  | Each project should have its own subnet base | 192.168.[1-254] or 172.17.[1-254]
+| PROJECT_ROOT  | Where your project is located	| /Users/me/Projects/my_awesome_project
+| PROJECT_NAME	| The name of your project      |	my_awesome_project
+
+## Project name
+
+In the `.docker/docker-compose.yml` file you must set the name of the project on the top (can't be loaded from env variables). my_awesome_project for example:
+
+```yaml
+version: '3.9'
+
+name: my_awesome_project
+
+services:
+  # services below...
+```
+
+## Project structure
+
+Default project structure
+
+```bash
+project_root
+├── .docker
+│   ├── .env
+│   ├── commands
+│   │   ├── my_custom_command
+│   ├── docker-compose.yml
+│   ├── etc
+│   │   └── service_name
+│   │       └── service_config.conf
+│   └── services
+│       └── service_name
+│           └── Dockerfile
+├── dcmd.toml # optional in that case
+└── # ...every files related to your project, framework, etc
+```
+
+You can change the default project structure by creating a dcmd.toml file at project root and set the right paths.
+
+See [CLI Configuration](/docs/cli/configuration) section.
+
+**Custom project structure**
+
+If you need to change the default project structure you can do it by creating a dcmd.toml file at project root and set the right paths.
+
+All the paths are relative to the project root but you can use absolute paths as well. Note that every variables are required once this file is created.
+
+```toml
+[docker]
+folder = '.docker'
+compose_file = '.docker/docker-compose.yml'
+compose_env_file = '.docker/.env'
+stop_timeout = 3
+```

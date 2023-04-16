@@ -1,0 +1,27 @@
+---
+sidebar_position: 4
+---
+
+# DNS server
+
+## DNS server
+
+### Start and stop the DNS server
+
+In order to resolves *.dev.local domains from your host start the docker DNS server by running :
+
+```sh
+dcmd dns start
+```
+
+You can stop it whenever you want
+
+```sh
+dcmd dns stop
+```
+
+### Troubleshooting
+
+If you have any issue related to the port 53, check if you have another DNS server running on your machine (dnsmasq, docksal, ddev dns for example), if so stop it and try again.
+
+More information about troubleshooting can be found [here](/docs/troubleshooting/dns).

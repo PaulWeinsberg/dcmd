@@ -1,0 +1,36 @@
+---
+sidebar_position: 3
+---
+
+# DNS resolution
+
+Docker commands needs to resolve VHOSTS from your local machine, in order to do so you need to setup a custom DNS domain that point to your local DNS server.
+
+### MacOS
+
+**Setup custom DNS resolver**
+
+```sh
+sudo mkdir -v /etc/resolver
+echo "nameserver 127.0.0.1" | sudo tee /etc/resolver/dev.local
+```
+
+### Linux
+
+**Setup custom DNS resolver**
+
+```sh
+echo "nameserver 127.0.0.1" | sudo tee -a /etc/resolv.conf
+```
+
+Note that if the queries are too long maybe you already have a nameserver configured which it used before and then switch to the right one, in that case you can edit the file /etc/resolv.conf and move the previous line on top of it.
+
+### Windows
+
+**Setup custom DNS resolver**
+
+Run PowerShell as administrator then run the following commands :
+
+```sh
+Add-DnsClientNrptRule -Namespace ".dev.local" -NameServers "127.0.0.1"
+```
