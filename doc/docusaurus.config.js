@@ -80,7 +80,7 @@ const config = {
             position: 'left',
             label: 'Docs',
           },
-          {to: '/feature-request', label: 'Feature request', position: 'left'},
+          {to: '/roadmap', label: 'Roadmap', position: 'left'},
           {to: '/support', label: 'Support', position: 'left'},
           {to: '/contribute', label: 'Contribute', position: 'left'},
           {
