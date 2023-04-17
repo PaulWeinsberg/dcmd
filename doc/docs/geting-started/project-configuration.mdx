@@ -15,6 +15,9 @@ Copy `.docker/.env.example` to `.dockser/.env`, then set the right variables val
 | PROJECT_ROOT  | Where your project is located	| /Users/me/Projects/my_awesome_project
 | PROJECT_NAME	| The name of your project      |	my_awesome_project
 
+These variables are used by the docker-compose.yml file to create the right network and volumes and they are mandatory.
+You can add as many variables as you want, they will be loaded by the docker-compose.yml file and be available in your command's files.
+
 ## Project name
 
 In the `.docker/docker-compose.yml` file you must set the name of the project on the top (can't be loaded from env variables). my_awesome_project for example:
@@ -53,7 +56,7 @@ You can change the default project structure by creating a dcmd.toml file at pro
 
 See [CLI Configuration](/docs/cli/configuration) section.
 
-**Custom project structure**
+## Custom project structure
 
 If you need to change the default project structure you can do it by creating a dcmd.toml file at project root and set the right paths.
 
