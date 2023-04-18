@@ -1,8 +1,0 @@
-{
-  "label": "Uninstall",
-  "position": 4,
-  "link": {
-    "type": "generated-index",
-    "description": "Uninstall dcmd from your system"
-  }
-}

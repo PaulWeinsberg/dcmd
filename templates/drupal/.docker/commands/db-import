@@ -1,6 +1,0 @@
-#!/usr/bin/env /bin/bash
-
-set -e
-
-docker exec -i ${PROJECT_NAME}_db mysql -u root -proot default < "$@"
-

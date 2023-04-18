@@ -1,6 +1,0 @@
-.env
-backup/**
-!backup/.gitkeep
-
-data/solr/data/**/data
-data/solr/logs/**

@@ -1,6 +1,0 @@
-#!/usr/bin/env /bin/bash
-
-set -e
-
-docker compose -f ${DOCKER_FOLDER}/docker-compose.yml logs -f $@
-
